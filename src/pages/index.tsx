@@ -51,17 +51,15 @@ const StatsPage: React.FC = () => {
     ttvPrice = formatDollars(stats.total_trade_volume * price / (10 ** 12));
   }
   return (
-    <div className='mt-4'>
+    <div>
       <Row>
         <CustomCard title="Transactions" value={stats!.transaction_count.toLocaleString('en-US')} subtitle="Since Launch" />
         <CustomCard title="Total Value Locked" value={tvlString} subtitle={tvlPrice} />
         <CustomCard title="Total Trade Volume" value={ttvString} subtitle={ttvPrice} />
       </Row>
-      <div className='mb-4'>
       {pairs && (
         <PairList pairs={pairs}/>
       )}
-      </div>
     </div>
   );
 };

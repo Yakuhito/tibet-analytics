@@ -7,7 +7,7 @@ export default function Document() {
       <Head />
       <body>
         <MyNavbar />
-        <div className='mx-4'>
+        <div className='mx-4 my-4'>
           <Main />
         </div>
         <NextScript />
