@@ -15,7 +15,7 @@
     xch_reserve: number;
     token_reserve: number;
     liquidity: number;
-    trade_volume: string;
+    trade_volume: number;
   }
 
   export interface StateChange {
