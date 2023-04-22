@@ -42,7 +42,10 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
   return (
     <Card>
       <Card.Body>
-        <Card.Title>Latest Transactions</Card.Title>
+        <Card.Title>
+          Latest Transactions
+          <Link href="/" className='float-end fs-6'>Back to Main Dashboard</Link>
+        </Card.Title>
         <Card.Text className="fs-6">
           Deltas are from the AMM{"'"}s perspective. A negative value means that the trader received the assets, while a negative one means that the trader offered (paid) that asset.
         </Card.Text>
