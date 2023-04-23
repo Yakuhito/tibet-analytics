@@ -16,7 +16,7 @@ export function formatToken(mojos: number, asChange: boolean = false): string {
 }
 
 export function formatDollars(value: number): string {
-    return "$" + formatWithComma(value);
+    return "$" + formatWithComma(value, 2);
 }
 
 export function mojoToXCHString(value: number, showAsChange: boolean = false): string {
