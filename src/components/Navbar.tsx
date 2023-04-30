@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-export default function MyNavbar() {
+export default function Navbar() {
   return (
     <nav className="w-full py-4 bg-white dark:bg-black flex justify-center items-center border-b border-neutral-300">
       <Link href={`${process.env.NEXT_PUBLIC_APP_URL}`}>
