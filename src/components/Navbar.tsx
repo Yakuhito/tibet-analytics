@@ -1,23 +1,19 @@
-import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Image from 'react-bootstrap/Image';
+import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 
 export default function MyNavbar() {
   return (
-    <Navbar bg="white" variant="pills" className="border-bottom mb-2 justify-content-center">
-        <Navbar.Brand className="ml-4 text-center">
-            <Link href={`${process.env.NEXT_PUBLIC_APP_URL}`} passHref>
-                <Image
-                    src="/logo.jpg"
-                    height="64"
-                    width="64"
-                    alt="TibetSwap Logo"
-                    className="circular-image-outline"
-                    roundedCircle
-                />
-            </Link>
-        </Navbar.Brand>
-    </Navbar>
+    <nav className="w-full py-4 bg-white dark:bg-black flex justify-center items-center border-b border-neutral-300">
+      <Link href={`${process.env.NEXT_PUBLIC_APP_URL}`}>
+          <Image
+              src="/logo.jpg"
+              height="64"
+              width="64"
+              alt="TibetSwap Logo"
+              className="rounded-full border border-neutral-300"
+          />
+      </Link>
+    </nav>
   );
-}
+};
