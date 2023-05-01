@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Transaction } from '@/api';
 import Link from 'next/link';
 import { formatToken, mojoToXCHString } from '@/utils';
+
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -38,7 +39,17 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
     }
   }
 
-  const generate_tbody = () => transactions.map(transaction => (
+  // Generate transaction table with filter
+  const [transactionFilter, setTransactionFilter] = useState('ALL');
+  
+  let filteredTransactions = transactions;
+  if (transactionFilter !== 'ALL') {
+    filteredTransactions = transactions.filter(
+      (transaction) => transaction.operation === transactionFilter
+    );
+  }
+
+  const generate_tbody = () => filteredTransactions.map(transaction => (
     <tr className="align-middle text-right" key={transaction.coin_id}>
       <td className="truncate max-w-[225px] text-brandDark text-left h-16 pl-4"><Link target="_blank" className="hover:opacity-60" href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
       <td className="pr-4 hidden lg:table-cell">{mojoToXCHString(transaction.state_change.xch, true)}</td>
@@ -54,10 +65,10 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
             <th>
               {/* Type filter */}
               <ul className="bg-brandDark/10 rounded-full p-1 inline-flex select-none text-brandDark/90 font-bold overflow-x-auto max-w-full text-sm sm:gap-2 sm:text-xl">
-                <li className="bg-brandDark text-brandLight px-3 sm:px-4 rounded-full">All</li>
-                <li className="px-3 sm:px-4 rounded-lg cursor-pointer">Swaps</li>
-                <li className="px-3 sm:px-4 rounded-lg cursor-pointer">Adds</li>
-                <li className="px-3 sm:px-4 rounded-lg cursor-pointer">Removes</li>
+                <li className={`${transactionFilter === 'ALL' ? 'bg-brandDark text-brandLight' : ''}  px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('ALL')}>All</li>
+                <li className={`${transactionFilter === 'SWAP' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('SWAP')}>Swaps</li>
+                <li className={`${transactionFilter === 'ADD_LIQUIDITY' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('ADD_LIQUIDITY')}>Adds</li>
+                <li className={`${transactionFilter === 'REMOVE_LIQUIDITY' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('REMOVE_LIQUIDITY')}>Removes</li>
               </ul>
             </th>
             <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token0 Amount</span></th>
