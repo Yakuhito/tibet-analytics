@@ -37,8 +37,8 @@ const StatsPage: React.FC = () => {
     fetchData();
   }, []);
 
-  const tvlString = mojoToXCHString(stats!.total_value_locked);
-  const ttvString = mojoToXCHString(stats!.total_trade_volume);
+  const tvlString = loading ? '' : mojoToXCHString(stats!.total_value_locked);
+  const ttvString = loading ? '' : mojoToXCHString(stats!.total_trade_volume);
 
   var tvlPrice = "Fetching price...";
   var ttvPrice = "Fetching price...";
