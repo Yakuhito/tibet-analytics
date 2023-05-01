@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { getStats, getPairs, Stats, Pair } from '@/api';
-import { Row } from 'react-bootstrap';
-import { CustomCard } from '@/components/CustomCard';
-import { PairList } from '@/components/PairList';
 import { formatDollars, mojoToXCHString } from '@/utils';
+import { getStats, getPairs, Stats, Pair } from '@/api';
+import { CustomCard } from '@/components/CustomCard';
+import React, { useEffect, useState } from 'react';
+import { PairList } from '@/components/PairList';
+
 
 async function getXCHPrice(): Promise<number | null> {
   try {
@@ -51,16 +51,30 @@ const StatsPage: React.FC = () => {
     ttvPrice = formatDollars(stats.total_trade_volume * price / (10 ** 12));
   }
   return (
-    <div>
-      <Row>
-        <CustomCard title="Transactions" value={stats!.transaction_count.toLocaleString('en-US')} subtitle="Since Launch" />
-        <CustomCard title="Total Value Locked" value={tvlString} subtitle={tvlPrice} />
-        <CustomCard title="Total Trade Volume" value={ttvString} subtitle={ttvPrice} />
-      </Row>
-      {pairs && (
-        <PairList pairs={pairs}/>
-      )}
-    </div>
+    <main>
+
+      {/* Analytics Section */}
+      <section>
+        <h1 className="font-bold text-5xl py-12">Analytics</h1>
+        <div className="w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark">
+          <CustomCard title="Transactions" value={stats!.transaction_count.toLocaleString('en-US')} />
+          <CustomCard title="Total Value Locked" value={tvlString} subtitle={tvlPrice} />
+          <CustomCard title="Total Trade Volume" value={ttvString} subtitle={ttvPrice} />
+        </div>
+      </section>
+
+
+      {/* Pairs Table Section */}
+      <section>
+        <h3 className="font-bold text-5xl py-8 pt-16">Pairs</h3>
+
+        {pairs && (
+          <div className="px-4 pb-20">
+            <PairList pairs={pairs}/>
+          </div>
+        )}
+      </section>
+    </main>
   );
 };
 
