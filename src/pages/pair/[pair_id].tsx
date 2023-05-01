@@ -55,8 +55,8 @@ export default function PairDetails() {
     setLoadingMoreTxes(false);
   };
 
-  if (loading || pair === null) {
-    return <div className='text-center mt-4'>Loading...</div>;
+  if (pair === null) {
+    return <div></div>;
   }
 
   return (
@@ -78,7 +78,7 @@ export default function PairDetails() {
               alt="Token Image"
               height={64}
               width={64}
-              className="rounded-full"
+              className={`${loading ? 'invisible' : ''} rounded-full animate-fadeIn`}
             />
           <h1 className="font-bold text-5xl">
             {pair.name}
@@ -87,10 +87,10 @@ export default function PairDetails() {
         </div>
 
         {/* Stats */}
-        <div className="w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark">
-          <CustomCard title={`${process.env.NEXT_PUBLIC_XCH} Reserve`} value={mojoToXCHString(pair.xch_reserve)} subtitle="managed by pair" />
-          <CustomCard title={`${pair.short_name} Reserve`} value={`${formatToken(pair.token_reserve)} ${pair.short_name}`} subtitle="managed by pair" />
-          <CustomCard title="Liquidity" value={`${formatToken(pair.liquidity)}`} subtitle="liquidity tokens across all holders" />
+        <div className={`${loading ? 'animate-pulse' : ''} w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark`}>
+          <CustomCard title={`${process.env.NEXT_PUBLIC_XCH} Reserve`} value={loading ? '0' : mojoToXCHString(pair.xch_reserve)} subtitle="managed by pair" loading={loading} />
+          <CustomCard title={`${pair.short_name} Reserve`} value={loading ? '0' : `${formatToken(pair.token_reserve)} ${pair.short_name}`} subtitle="managed by pair" loading={loading} />
+          <CustomCard title="Liquidity" value={loading ? '0' : `${formatToken(pair.liquidity)}`} subtitle="liquidity tokens across all holders" loading={loading} />
         </div>
       </section>
 
@@ -99,7 +99,7 @@ export default function PairDetails() {
       <section className="mb-20">
         <h2 className="font-bold text-5xl py-8 pt-16 pb-12">Transactions</h2>
         <div className="flex flex-col items-center">
-          {transactions && (
+          {transactions && !loading && (
             <TransactionList
               transactions={transactions}
               tokenShortName={pair.short_name}
@@ -110,7 +110,7 @@ export default function PairDetails() {
           )}
 
           {/* Load more transactions button */}
-          {moarTxesAvailable &&
+          {moarTxesAvailable && !loading &&
           <button className="bg-brandDark text-brandLight px-6 rounded-xl h-[40px] font-bold w-full mt-8 hover:opacity-90 lg:max-w-[10rem] flex justify-center items-center" onClick={loadMoreTxes}>
             {loadingMoarTxes ? <LoadingSpinner /> : 'Load More' }
           </button>
