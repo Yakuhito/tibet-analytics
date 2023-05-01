@@ -11,73 +11,63 @@ interface TransactionListProps {
   loadMoreTxes: () => void;
 }
 
-// hail GPT-4
-function transformOperation(operation: string): string {
-  return operation
-    .replace(/_/g, ' ')
-    .toLowerCase()
-    .replace(/(^|\s)\S/g, (match) => match.toUpperCase());
-}
-
-function stateChangeToString(state_change: any, token: string) {
-  return <div>
-    {mojoToXCHString(state_change["xch"], true)} <br/>
-    {formatToken(state_change["token"], true)} {token}<br/>
-    {state_change["liquidity"] === 0 ? '' : (
-      formatToken(state_change["liquidity"], true) + " liquidity"
-    )}
-  </div>;
-}
 
 export const TransactionList: React.FC<TransactionListProps> = ({ transactions, tokenShortName, moarTxesAvailable, loadingMoarTxes, loadMoreTxes }) => {
-  const generate_tbody = () => transactions.map(transaction => <tr className="align-middle text-left" key={transaction.coin_id}>
-    <td><Link href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id} passHref>{transaction.coin_id}</Link></td>
-    <td>{transformOperation(transaction.operation)}</td>
-    <td>{stateChangeToString(transaction.state_change, tokenShortName)}</td>
-    <td>{transaction.height}</td>
-  </tr>);
+
+  function generateOperationSummary(operation: Transaction['operation'], state_change: Transaction['state_change']) {
+    switch (operation) {
+      case "ADD_LIQUIDITY":
+        // return `Add ${tokenShortName} and XCH`;
+        return <span><span className="text-green-800">Add</span> {tokenShortName} and XCH</span>;
+      case "SWAP":
+        let swapAdd;
+        let swapRemove;
+
+        if (state_change.xch < 0) {
+          swapRemove = "XCH";
+          swapAdd = tokenShortName;
+        } else {
+          swapAdd = "XCH";
+          swapRemove = tokenShortName;
+        }
+        return <span><span className="text-yellow-700">Swap</span> {swapRemove} for {swapAdd}</span>;
+      case "REMOVE_LIQUIDITY":
+        return <span><span className="text-red-800">Remove</span> XCH and {tokenShortName}</span>;
+      default:
+        return;
+    }
+  }
+
+  const generate_tbody = () => transactions.map(transaction => (
+    <tr className="align-middle text-right" key={transaction.coin_id}>
+      <td className="truncate max-w-[225px] text-brandDark text-left h-16 pl-4 hover:opacity-60 "><Link target='_blank' href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
+      <td className="pr-4 hidden lg:table-cell">{mojoToXCHString(transaction.state_change.xch, true)}</td>
+      <td className="pr-4 hidden lg:table-cell">{formatToken(transaction.state_change.token, true)} {tokenShortName}</td>
+      <td className="pr-4">{transaction.height}</td>
+    </tr>
+  ));
 
   return (
-    <p>TransactionList</p>
-  )
-
-  // return (
-  //   <Card>
-  //     <Card.Body>
-  //       <Card.Title>
-  //         Latest Transactions
-  //         <Link href="/" className='float-end fs-6'>Back to Main Dashboard</Link>
-  //       </Card.Title>
-  //       <Card.Text className="fs-6">
-  //         Deltas are from the AMM{"'"}s perspective. A negative value means that the trader received the assets, while a positive one means that the trader offered (paid) that asset.
-  //       </Card.Text>
-  //       <Table responsive>
-  //         <thead className="bg-light text-left">
-  //           <tr>
-  //             <th>Coin ID</th>
-  //             <th>Operation</th>
-  //             <th>Changes (Deltas)</th>
-  //             <th>Height</th>
-  //           </tr>
-  //         </thead>
-  //         <tbody className="text-left">
-  //           {generate_tbody()}
-  //           { moarTxesAvailable ? <tr className="text-center">
-  //             <td colSpan={4}>
-  //               <Button
-  //                 size="sm"
-  //                 className="my-2"
-  //                 variant="outline-primary"
-  //                 onClick={loadMoreTxes}
-  //                 disabled={loadingMoarTxes}
-  //               >
-  //                 {loadingMoarTxes ? 'Loading...' : 'Load More'}
-  //               </Button>
-  //             </td>
-  //           </tr> : <></>}
-  //         </tbody>
-  //       </Table>
-  //     </Card.Body>
-  //   </Card>
-  // );
+      <table className="w-full font-medium whitespace-nowrap">
+        <thead className="text-left text-brandDark/90 sticky top-24 bg-brandLight/80">
+          <tr className="h-16 sm:text-xl backdrop-blur">
+            <th>
+              {/* Type filter */}
+              <ul className="bg-brandDark/10 rounded-full p-1 inline-flex select-none text-brandDark/90 font-bold overflow-x-auto max-w-full text-sm sm:gap-2 sm:text-xl">
+                <li className="bg-brandDark text-brandLight px-3 sm:px-4 rounded-full">All</li>
+                <li className="px-3 sm:px-4 rounded-lg cursor-pointer">Swaps</li>
+                <li className="px-3 sm:px-4 rounded-lg cursor-pointer">Adds</li>
+                <li className="px-3 sm:px-4 rounded-lg cursor-pointer">Removes</li>
+              </ul>
+            </th>
+            <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token0 Amount</span></th>
+            <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token1 Amount</span></th>
+            <th className="text-right"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Height</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {generate_tbody()}
+        </tbody>
+      </table>
+  );
 };
