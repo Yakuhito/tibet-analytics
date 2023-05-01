@@ -40,7 +40,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
 
   const generate_tbody = () => transactions.map(transaction => (
     <tr className="align-middle text-right" key={transaction.coin_id}>
-      <td className="truncate max-w-[225px] text-brandDark text-left h-16 pl-4 hover:opacity-60 "><Link target='_blank' href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
+      <td className="truncate max-w-[225px] text-brandDark text-left h-16 pl-4"><Link target="_blank" className="hover:opacity-60" href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
       <td className="pr-4 hidden lg:table-cell">{mojoToXCHString(transaction.state_change.xch, true)}</td>
       <td className="pr-4 hidden lg:table-cell">{formatToken(transaction.state_change.token, true)} {tokenShortName}</td>
       <td className="pr-4">{transaction.height}</td>
