@@ -1,10 +1,11 @@
 // pages/pair/[pair_id].tsx
 import { Pair, Transaction, getPair, getTransactions } from '@/api';
-import { CustomCard } from '@/components/CustomCard';
 import { TransactionList } from '@/components/TransactionList';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { formatToken, mojoToXCHString } from '@/utils';
-import { useRouter } from 'next/router';
+import { CustomCard } from '@/components/CustomCard';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -95,9 +96,9 @@ export default function PairDetails() {
 
 
       {/* Latest Transactions Section */}
-      <section>
+      <section className="mb-20">
         <h2 className="font-bold text-5xl py-8 pt-16 pb-12">Transactions</h2>
-        <div>
+        <div className="flex flex-col items-center">
           {transactions && (
             <TransactionList
               transactions={transactions}
@@ -107,6 +108,13 @@ export default function PairDetails() {
               loadMoreTxes={loadMoreTxes}
             />
           )}
+
+          {/* Load more transactions button */}
+          {moarTxesAvailable &&
+          <button className="bg-brandDark text-brandLight px-6 rounded-xl h-[40px] font-bold w-full mt-8 hover:opacity-90 lg:max-w-[10rem] flex justify-center items-center" onClick={loadMoreTxes}>
+            {loadingMoarTxes ? <LoadingSpinner /> : 'Load More' }
+          </button>
+          }
         </div>
       </section>
 
