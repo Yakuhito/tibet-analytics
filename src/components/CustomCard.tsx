@@ -1,6 +1,5 @@
 // Import React and necessary components
 import React, { ReactHTMLElement, ReactNode, ReactSVG } from 'react';
-import { DollarSign } from 'react-feather';
 
 // Define an interface for the component props
 interface CustomCardProps {
