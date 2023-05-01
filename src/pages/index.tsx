@@ -37,10 +37,6 @@ const StatsPage: React.FC = () => {
     fetchData();
   }, []);
 
-  if (loading) {
-    return <div className='text-center mt-4'>Loading...</div>;
-  }
-
   const tvlString = mojoToXCHString(stats!.total_value_locked);
   const ttvString = mojoToXCHString(stats!.total_trade_volume);
 
@@ -56,10 +52,10 @@ const StatsPage: React.FC = () => {
       {/* Analytics Section */}
       <section>
         <h1 className="font-bold text-5xl py-12">Analytics</h1>
-        <div className="w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark">
-          <CustomCard title="Transactions" value={stats!.transaction_count.toLocaleString('en-US')} />
-          <CustomCard title="Total Value Locked" value={tvlString} subtitle={tvlPrice} />
-          <CustomCard title="Total Trade Volume" value={ttvString} subtitle={ttvPrice} />
+        <div className={`${loading ? 'animate-pulse' : ''} w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark`}>
+          <CustomCard title="Transactions" value={loading ? '0' : stats!.transaction_count.toLocaleString('en-US')} loading={loading}/>
+          <CustomCard title="Total Value Locked" value={loading ? '0' : tvlString} subtitle={loading ? '0' : tvlPrice} loading={loading} />
+          <CustomCard title="Total Trade Volume" value={loading ? '0' : ttvString} subtitle={loading ? '0' : ttvPrice} loading={loading} />
         </div>
       </section>
 
@@ -70,7 +66,7 @@ const StatsPage: React.FC = () => {
 
         {pairs && (
           <div className="px-4 pb-20">
-            <PairList pairs={pairs}/>
+            {!loading && <PairList pairs={pairs}/>}
           </div>
         )}
       </section>
