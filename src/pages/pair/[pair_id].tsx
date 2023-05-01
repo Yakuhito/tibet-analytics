@@ -67,7 +67,7 @@ export default function PairDetails() {
         <div className="flex items-center gap-4 select-none">
           <Link href="/" className="text-xl font-medium text-brandDark/90 hover:opacity-60">Home</Link>
           <p className="text-xl font-medium text-brandDark">›</p>
-          <p className="text-xl font-medium text-brandDark">SBX</p>
+          <p className="text-xl font-medium text-brandDark">{pair.short_name}</p>
         </div>
 
         {/* Token Name */}
