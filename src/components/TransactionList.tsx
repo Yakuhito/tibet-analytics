@@ -1,6 +1,4 @@
 import React from 'react';
-import Card from 'react-bootstrap/Card';
-import { Button, Table } from 'react-bootstrap';
 import { Transaction } from '@/api';
 import Link from 'next/link';
 import { formatToken, mojoToXCHString } from '@/utils';
@@ -40,42 +38,46 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
   </tr>);
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>
-          Latest Transactions
-          <Link href="/" className='float-end fs-6'>Back to Main Dashboard</Link>
-        </Card.Title>
-        <Card.Text className="fs-6">
-          Deltas are from the AMM{"'"}s perspective. A negative value means that the trader received the assets, while a positive one means that the trader offered (paid) that asset.
-        </Card.Text>
-        <Table responsive>
-          <thead className="bg-light text-left">
-            <tr>
-              <th>Coin ID</th>
-              <th>Operation</th>
-              <th>Changes (Deltas)</th>
-              <th>Height</th>
-            </tr>
-          </thead>
-          <tbody className="text-left">
-            {generate_tbody()}
-            { moarTxesAvailable ? <tr className="text-center">
-              <td colSpan={4}>
-                <Button
-                  size="sm"
-                  className="my-2"
-                  variant="outline-primary"
-                  onClick={loadMoreTxes}
-                  disabled={loadingMoarTxes}
-                >
-                  {loadingMoarTxes ? 'Loading...' : 'Load More'}
-                </Button>
-              </td>
-            </tr> : <></>}
-          </tbody>
-        </Table>
-      </Card.Body>
-    </Card>
-  );
+    <p>TransactionList</p>
+  )
+
+  // return (
+  //   <Card>
+  //     <Card.Body>
+  //       <Card.Title>
+  //         Latest Transactions
+  //         <Link href="/" className='float-end fs-6'>Back to Main Dashboard</Link>
+  //       </Card.Title>
+  //       <Card.Text className="fs-6">
+  //         Deltas are from the AMM{"'"}s perspective. A negative value means that the trader received the assets, while a positive one means that the trader offered (paid) that asset.
+  //       </Card.Text>
+  //       <Table responsive>
+  //         <thead className="bg-light text-left">
+  //           <tr>
+  //             <th>Coin ID</th>
+  //             <th>Operation</th>
+  //             <th>Changes (Deltas)</th>
+  //             <th>Height</th>
+  //           </tr>
+  //         </thead>
+  //         <tbody className="text-left">
+  //           {generate_tbody()}
+  //           { moarTxesAvailable ? <tr className="text-center">
+  //             <td colSpan={4}>
+  //               <Button
+  //                 size="sm"
+  //                 className="my-2"
+  //                 variant="outline-primary"
+  //                 onClick={loadMoreTxes}
+  //                 disabled={loadingMoarTxes}
+  //               >
+  //                 {loadingMoarTxes ? 'Loading...' : 'Load More'}
+  //               </Button>
+  //             </td>
+  //           </tr> : <></>}
+  //         </tbody>
+  //       </Table>
+  //     </Card.Body>
+  //   </Card>
+  // );
 };

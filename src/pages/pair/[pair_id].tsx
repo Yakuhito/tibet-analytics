@@ -5,7 +5,6 @@ import { TransactionList } from '@/components/TransactionList';
 import { formatToken, mojoToXCHString } from '@/utils';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Row } from 'react-bootstrap';
 
 export default function PairDetails() {
   const router = useRouter();
@@ -55,21 +54,22 @@ export default function PairDetails() {
   }
 
   return (
-    <div>
-      <Row>
-        <CustomCard title={`${process.env.NEXT_PUBLIC_XCH} Reserve`} value={mojoToXCHString(pair.xch_reserve)} subtitle="managed by pair" />
-        <CustomCard title={`${pair.short_name} Reserve`} value={`${formatToken(pair.token_reserve)} ${pair.short_name}`} subtitle="managed by pair" />
-        <CustomCard title="Liquidity" value={`${formatToken(pair.liquidity)}`} subtitle="liquidity tokens across all holders" />
-      </Row>
-      {transactions && (
-        <TransactionList
-          transactions={transactions}
-          tokenShortName={pair.short_name}
-          moarTxesAvailable={moarTxesAvailable}
-          loadingMoarTxes={loadingMoarTxes}
-          loadMoreTxes={loadMoreTxes}
-        />
-      )}
-    </div>
+    <p>pair id</p>
+    // <div>
+    //   <Row>
+    //     <CustomCard title={`${process.env.NEXT_PUBLIC_XCH} Reserve`} value={mojoToXCHString(pair.xch_reserve)} subtitle="managed by pair" />
+    //     <CustomCard title={`${pair.short_name} Reserve`} value={`${formatToken(pair.token_reserve)} ${pair.short_name}`} subtitle="managed by pair" />
+    //     <CustomCard title="Liquidity" value={`${formatToken(pair.liquidity)}`} subtitle="liquidity tokens across all holders" />
+    //   </Row>
+    //   {transactions && (
+    //     <TransactionList
+    //       transactions={transactions}
+    //       tokenShortName={pair.short_name}
+    //       moarTxesAvailable={moarTxesAvailable}
+    //       loadingMoarTxes={loadingMoarTxes}
+    //       loadMoreTxes={loadMoreTxes}
+    //     />
+    //   )}
+    // </div>
   );
 }
