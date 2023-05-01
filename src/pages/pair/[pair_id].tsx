@@ -78,7 +78,7 @@ export default function PairDetails() {
               alt="Token Image"
               height={64}
               width={64}
-              className={`${loading ? 'invisible' : ''} rounded-full animate-fadeIn`}
+              className={`${loading ? 'invisible' : 'animate-fadeIn'} rounded-full`}
             />
           <h1 className="font-bold text-5xl">
             {pair.name}
