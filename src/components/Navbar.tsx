@@ -4,16 +4,22 @@ import React from 'react';
 
 export default function Navbar() {
   return (
-    <nav className="w-full py-4 bg-white dark:bg-black flex justify-center items-center border-b border-neutral-300">
-      <Link href={`${process.env.NEXT_PUBLIC_APP_URL}`}>
-          <Image
-              src="/logo.jpg"
-              height="64"
-              width="64"
-              alt="TibetSwap Logo"
-              className="rounded-full border border-neutral-300"
-          />
-      </Link>
+    <nav className="sticky w-full top-0 bg-brandLight/50 backdrop-blur-xl">
+      <div className="container mx-auto px-4 flex gap-8 items-center justify-between py-4">
+        <Link href={`${process.env.NEXT_PUBLIC_APP_URL}`}>
+            <Image
+                src="/logo.jpg"
+                height="64"
+                width="64"
+                alt="TibetSwap Logo"
+                className="rounded-full border-neutral-300 hover:translate-y-1 hover:opacity-80 transition"
+            />
+        </Link>
+        <div className="flex items-center bg-brandDark/40 rounded-xl p-1">
+          <Link href="/" className="font-medium text-brandDark px-4 py-1">Swap</Link>
+          <Link href="/" className="font-medium text-brandLight px-4 py-1 bg-brandDark rounded-lg">Analytics</Link>
+        </div>
+      </div>
     </nav>
   );
 };
