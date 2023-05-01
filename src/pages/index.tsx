@@ -58,8 +58,8 @@ const StatsPage: React.FC = () => {
         <h1 className="font-bold text-5xl py-12">Analytics</h1>
         <div className="w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark">
           <CustomCard title="Transactions" value={stats!.transaction_count.toLocaleString('en-US')} />
-          <CustomCard title="Total Value Locked" value={tvlString + 'XCH'} subtitle={tvlPrice} />
-          <CustomCard title="Total Trade Volume" value={ttvString + 'XCH'} subtitle={ttvPrice} />
+          <CustomCard title="Total Value Locked" value={tvlString} subtitle={tvlPrice} />
+          <CustomCard title="Total Trade Volume" value={ttvString} subtitle={ttvPrice} />
         </div>
       </section>
 
