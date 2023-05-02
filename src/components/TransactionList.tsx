@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Transaction } from '@/api';
 import Link from 'next/link';
 import { formatToken, mojoToXCHString } from '@/utils';
+import Image from 'next/image';
 
 
 interface TransactionListProps {
@@ -19,7 +20,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
     switch (operation) {
       case "ADD_LIQUIDITY":
         // return `Add ${tokenShortName} and XCH`;
-        return <span><span className="text-green-800">Add</span> {tokenShortName} and XCH</span>;
+        return <span>Add {tokenShortName} and XCH</span>;
       case "SWAP":
         let swapAdd;
         let swapRemove;
@@ -31,9 +32,9 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
           swapAdd = "XCH";
           swapRemove = tokenShortName;
         }
-        return <span><span className="text-yellow-700">Swap</span> {swapRemove} for {swapAdd}</span>;
+        return <span>Swap {swapRemove} for {swapAdd}</span>;
       case "REMOVE_LIQUIDITY":
-        return <span><span className="text-red-800">Remove</span> XCH and {tokenShortName}</span>;
+        return <span>Remove XCH and {tokenShortName}</span>;
       default:
         return;
     }
@@ -54,17 +55,21 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
       <td className="truncate max-w-[225px] text-brandDark text-left h-16 pl-4"><Link target="_blank" className="hover:opacity-60" href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
       <td className="pr-4 hidden lg:table-cell">{mojoToXCHString(transaction.state_change.xch, true)}</td>
       <td className="pr-4 hidden lg:table-cell">{formatToken(transaction.state_change.token, true)} {tokenShortName}</td>
-      <td className="pr-4">{transaction.height}</td>
+      <td className="pr-4 hidden lg:table-cell">{transaction.height}</td>
+      <td className="pr-4 lg:hidden text-sm font-medium">
+        <p className={`${transaction.state_change.xch < 0 ? 'text-red-800' : 'text-green-800'}`}>{mojoToXCHString(transaction.state_change.xch, true)}</p>
+        <p className={`${transaction.state_change.token < 0 ? 'text-red-800' : 'text-green-800'}`}>{formatToken(transaction.state_change.token, true)} {tokenShortName}</p>
+      </td>
     </tr>
   ));
 
   return (
       <table className="w-full font-medium whitespace-nowrap">
         <thead className="text-left text-brandDark/90 sticky top-24 bg-brandLight/80">
-          <tr className="h-16 sm:text-xl backdrop-blur">
+          <tr className="h-16 sm:text-xl backdrop-blur relative">
             <th>
               {/* Type filter */}
-              <ul className="bg-brandDark/10 rounded-full p-1 inline-flex select-none text-brandDark/90 font-bold overflow-x-auto max-w-full text-sm sm:gap-2 sm:text-xl">
+              <ul className="absolute lg:relative -translate-y-1/2 lg:translate-y-0 bg-brandDark/10 rounded-full p-1 inline-flex select-none text-brandDark/90 font-bold overflow-x-auto max-w-full text-sm sm:gap-2 sm:text-xl">
                 <li className={`${transactionFilter === 'ALL' ? 'bg-brandDark text-brandLight' : ''}  px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('ALL')}>All</li>
                 <li className={`${transactionFilter === 'SWAP' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('SWAP')}>Swaps</li>
                 <li className={`${transactionFilter === 'ADD_LIQUIDITY' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('ADD_LIQUIDITY')}>Adds</li>
@@ -73,7 +78,8 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
             </th>
             <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token0 Amount</span></th>
             <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token1 Amount</span></th>
-            <th className="text-right"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Height</span></th>
+            <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Height</span></th>
+            <th className="text-right"><span className='bg-brandDark/10 px-4 text-sm sm:text-xl rounded-full py-1 lg:hidden'>Change</span></th>
           </tr>
         </thead>
         <tbody>
