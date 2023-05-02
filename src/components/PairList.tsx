@@ -26,7 +26,7 @@ export const PairList: React.FC<PairListProps> = ({ pairs }) => {
         <td className="pr-4 text-right hidden xl:table-cell">{mojoToXCHString(pair.xch_reserve)}</td>
         <td className="pr-4 text-right hidden xl:table-cell">{formatToken(pair.token_reserve)} {pair.short_name}</td>
         <td className="pr-4 text-right hidden md:table-cell">{formatToken(pair.liquidity)} tokens</td>
-        <td className="pr-4 text-right">{mojoToXCHString(pair.trade_volume)} XCH</td>
+        <td className="pr-4 text-right">{mojoToXCHString(pair.trade_volume)}</td>
       </tr>
     </Link>
     
