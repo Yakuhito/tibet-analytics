@@ -65,11 +65,11 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
 
   return (
       <table className="w-full font-medium whitespace-nowrap">
-        <thead className="text-left text-brandDark/90 sticky top-24 bg-brandLight/80 dark:bg-zinc-900/80">
+        <thead className="text-left text-brandDark/90 dark:text-brandLight/80 sticky top-24 bg-brandLight/80 dark:bg-zinc-900/80">
           <tr className="h-16 sm:text-xl backdrop-blur relative">
             <th>
               {/* Type filter */}
-              <ul className="absolute lg:relative -translate-y-1/2 lg:translate-y-0 bg-brandDark/10 rounded-full p-1 inline-flex select-none text-brandDark/90 font-bold overflow-x-auto max-w-full text-sm sm:gap-2 sm:text-xl">
+              <ul className="absolute lg:relative -translate-y-1/2 lg:translate-y-0 bg-brandDark/10 rounded-full p-1 inline-flex select-none text-brandDark/90 dark:text-brandLight/80 font-bold overflow-x-auto max-w-full text-sm sm:gap-2 sm:text-xl">
                 <li className={`${transactionFilter === 'ALL' ? 'bg-brandDark text-brandLight' : ''}  px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('ALL')}>All</li>
                 <li className={`${transactionFilter === 'SWAP' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('SWAP')}>Swaps</li>
                 <li className={`${transactionFilter === 'ADD_LIQUIDITY' ? 'bg-brandDark text-brandLight' : ''} px-3 sm:px-4 rounded-full cursor-pointer hover:opacity-90`} onClick={() => setTransactionFilter('ADD_LIQUIDITY')}>Adds</li>
