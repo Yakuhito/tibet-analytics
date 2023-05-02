@@ -66,9 +66,9 @@ export default function PairDetails() {
 
         {/* Breadcrumb */}
         <div className="flex items-center gap-4 select-none">
-          <Link href="/" className="text-xl font-medium text-brandDark/90 hover:opacity-60">Home</Link>
-          <p className="text-xl font-medium text-brandDark">›</p>
-          <p className="text-xl font-medium text-brandDark">{pair.short_name}</p>
+          <Link href="/" className="text-xl font-medium text-brandDark/90 hover:opacity-60 dark:text-brandLight/80">Home</Link>
+          <p className="text-xl font-medium text-brandDark dark:text-brandLight">›</p>
+          <p className="text-xl font-medium text-brandDark dark:text-brandLight">{pair.short_name}</p>
         </div>
 
         {/* Token Name */}
@@ -82,12 +82,12 @@ export default function PairDetails() {
             />
           <h1 className="font-bold text-5xl">
             {pair.name}
-            <span className="text-brandDark/50 font-bold text-xl ml-2 sm:ml-4">({pair.short_name})</span>
+            <span className="text-brandDark/50 font-bold text-xl ml-2 sm:ml-4 dark:text-brandLight/50">({pair.short_name})</span>
           </h1>
         </div>
 
         {/* Stats */}
-        <div className={`${loading ? 'animate-pulse' : ''} w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark`}>
+        <div className={`${loading ? 'animate-pulse' : ''} w-full px-4 py-8 md:py-12 rounded-xl flex flex-col lg:flex-row md:justify-evenly gap-8 bg-brandDark bg-gradient-to-br from-[#7fa9b8] to-brandDark dark:from-brandDark dark:to-[#152f38]`}>
           <CustomCard title={`${process.env.NEXT_PUBLIC_XCH} Reserve`} value={loading ? '0' : mojoToXCHString(pair.xch_reserve)} subtitle="managed by pair" loading={loading} />
           <CustomCard title={`${pair.short_name} Reserve`} value={loading ? '0' : `${formatToken(pair.token_reserve)} ${pair.short_name}`} subtitle="managed by pair" loading={loading} />
           <CustomCard title="Liquidity" value={loading ? '0' : `${formatToken(pair.liquidity)}`} subtitle="liquidity tokens across all holders" loading={loading} />

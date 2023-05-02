@@ -5,14 +5,22 @@
 /* Pretty Scrollbar */
 html::-webkit-scrollbar {
     width: 12px;
-  }
+}
    
-  html::-webkit-scrollbar-track {
-    background: transparent;
-  }
-   
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+html::-webkit-scrollbar-thumb {
+  background: #526e78;
+  border-radius: 1rem;
+  border: 3px solid #EFF4F7;
+}
+
+@media (prefers-color-scheme: dark) {
   html::-webkit-scrollbar-thumb {
     background: #526e78;
     border-radius: 1rem;
-    border: 3px solid #EFF4F7;
+    border: 3px solid #18181b;
   }
+}

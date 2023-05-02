@@ -52,20 +52,20 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
 
   const generate_tbody = () => filteredTransactions.map(transaction => (
     <tr className="align-middle text-right" key={transaction.coin_id}>
-      <td className="truncate max-w-[225px] text-brandDark text-left h-16 pl-4"><Link target="_blank" className="hover:opacity-60" href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
+      <td className="truncate max-w-[225px] text-brandDark dark:text-brandLight text-left h-16 pl-4"><Link target="_blank" className="hover:opacity-60" href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
       <td className="pr-4 hidden lg:table-cell">{mojoToXCHString(transaction.state_change.xch, true)}</td>
       <td className="pr-4 hidden lg:table-cell">{formatToken(transaction.state_change.token, true)} {tokenShortName}</td>
       <td className="pr-4 hidden lg:table-cell">{transaction.height}</td>
       <td className="pr-4 lg:hidden text-sm font-medium">
-        <p className={`${transaction.state_change.xch < 0 ? 'text-red-800' : 'text-green-800'}`}>{mojoToXCHString(transaction.state_change.xch, true)}</p>
-        <p className={`${transaction.state_change.token < 0 ? 'text-red-800' : 'text-green-800'}`}>{formatToken(transaction.state_change.token, true)} {tokenShortName}</p>
+        <p className={`${transaction.state_change.xch < 0 ? 'text-red-800 dark:text-red-700' : 'text-green-800 dark:text-green-600'}`}>{mojoToXCHString(transaction.state_change.xch, true)}</p>
+        <p className={`${transaction.state_change.token < 0 ? 'text-red-800 dark:text-red-700' : 'text-green-800 dark:text-green-600'}`}>{formatToken(transaction.state_change.token, true)} {tokenShortName}</p>
       </td>
     </tr>
   ));
 
   return (
       <table className="w-full font-medium whitespace-nowrap">
-        <thead className="text-left text-brandDark/90 sticky top-24 bg-brandLight/80">
+        <thead className="text-left text-brandDark/90 sticky top-24 bg-brandLight/80 dark:bg-zinc-900/80">
           <tr className="h-16 sm:text-xl backdrop-blur relative">
             <th>
               {/* Type filter */}
