@@ -1,7 +1,3 @@
-// Import React and necessary components
-import React, { ReactHTMLElement, ReactNode, ReactSVG } from 'react';
-
-// Define an interface for the component props
 interface CustomCardProps {
   title: string;
   value: string;
@@ -9,7 +5,6 @@ interface CustomCardProps {
   loading?: boolean;
 }
 
-// Create a functional component with TypeScript
 export const CustomCard: React.FC<CustomCardProps> = ({ title, value, subtitle, loading }) => {
   return (
     <div>
