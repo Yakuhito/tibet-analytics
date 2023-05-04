@@ -1,9 +1,8 @@
-import React from 'react';
+import { formatToken, mojoToXCHString } from '@/utils';
+import Image from 'next/image';
 import { Pair } from '@/api';
 import Link from 'next/link';
-import Image from 'next/image';
-import { formatToken, mojoToXCHString } from '@/utils';
-
+import React from 'react';
 
 interface PairListProps {
   pairs: Pair[];
@@ -21,7 +20,10 @@ export const PairList: React.FC<PairListProps> = ({ pairs }) => {
             width={24}
             className="rounded-full"
           />
-          <p className="max-w-[22rem] inline-flex gap-2"><span className="hidden sm:block text-ellipsis overflow-hidden">{pair.name}</span> <span className="sm:text-brandDark/50 dark:sm:text-brandLight/50 sm:before:content-['('] sm:after:content-[')']">{pair.short_name}</span></p>
+          <p className="max-w-[22rem] inline-flex gap-2">
+            <span className="hidden sm:block text-ellipsis overflow-hidden">{pair.name}</span>
+            <span className="sm:text-brandDark/50 dark:sm:text-brandLight/50 sm:before:content-['('] sm:after:content-[')']">{pair.short_name}</span>
+          </p>
         </td>
         <td className="pr-4 text-right hidden xl:table-cell">{mojoToXCHString(pair.xch_reserve)}</td>
         <td className="pr-4 text-right hidden xl:table-cell">{formatToken(pair.token_reserve)} {pair.short_name}</td>
