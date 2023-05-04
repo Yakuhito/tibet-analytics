@@ -1,4 +1,3 @@
-// pages/pair/[pair_id].tsx
 import { Pair, Transaction, getPair, getTransactions } from '@/api';
 import { TransactionList } from '@/components/TransactionList';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -10,25 +9,29 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function PairDetails() {
+
+  // Get pair ID from url
   const router = useRouter();
   const { pair_id } = router.query;
 
+  // Number of transactions to get from API at once
   const PAGINATION = 42;
 
-  const [pair, setPair] = useState<Pair | null>(null);
   const [transactions, setTransactions] = useState<Transaction[] | null>(null);
+  const [moreTxesAvailable, setMoreTxesAvailable] = useState(false);
+  const [loadingMoreTxes, setLoadingMoreTxes] = useState(false);
+  const [pair, setPair] = useState<Pair | null>(null);
   const [loading, setLoading] = useState(true);
-  const [loadingMoarTxes, setLoadingMoreTxes] = useState(false);
-  const [moarTxesAvailable, setMoarTxesAvailable] = useState(false);
 
+  // On page load, fetch pair details and transactions
   useEffect(() => {
     async function fetchData() {
       try {
         const [pairData, transactionsData] = await Promise.all([getPair(pair_id as string), getTransactions(pair_id as string, PAGINATION)]);
-        setPair(pairData);
+        setMoreTxesAvailable(transactionsData.length === PAGINATION);
         setTransactions(transactionsData);
-        setMoarTxesAvailable(transactionsData.length === PAGINATION);
         setLoading(false);
+        setPair(pairData);
       } catch (error) {
         alert('Error fetching data :(');
       }
@@ -40,14 +43,12 @@ export default function PairDetails() {
     }
   }, [pair_id]);
 
+  // Handle pagination
   const loadMoreTxes = async () => {
-    if(loadingMoarTxes || !moarTxesAvailable) return;
-
+    if(loadingMoreTxes || !moreTxesAvailable) return;
     setLoadingMoreTxes(true);
-
     const newTxes = await getTransactions(pair_id as string, PAGINATION, transactions?.length ?? 0);
-
-    setMoarTxesAvailable(newTxes.length === PAGINATION);
+    setMoreTxesAvailable(newTxes.length === PAGINATION);
     setTransactions([
       ...(transactions ?? []),
       ...newTxes
@@ -55,9 +56,8 @@ export default function PairDetails() {
     setLoadingMoreTxes(false);
   };
 
-  if (pair === null) {
-    return <div></div>;
-  }
+  // Only render if pair exists
+  if (pair === null) return
 
   return (
     <main>
@@ -103,16 +103,16 @@ export default function PairDetails() {
             <TransactionList
               transactions={transactions}
               tokenShortName={pair.short_name}
-              moarTxesAvailable={moarTxesAvailable}
-              loadingMoarTxes={loadingMoarTxes}
+              moreTxesAvailable={moreTxesAvailable}
+              loadingMoreTxes={loadingMoreTxes}
               loadMoreTxes={loadMoreTxes}
             />
           )}
 
           {/* Load more transactions button */}
-          {moarTxesAvailable && !loading &&
+          {moreTxesAvailable && !loading &&
           <button className="bg-brandDark text-brandLight px-6 rounded-xl h-[40px] font-bold w-full mt-8 hover:opacity-90 lg:max-w-[10rem] flex justify-center items-center" onClick={loadMoreTxes}>
-            {loadingMoarTxes ? <LoadingSpinner /> : 'Load More' }
+            {loadingMoreTxes ? <LoadingSpinner /> : 'Load More' }
           </button>
           }
         </div>
