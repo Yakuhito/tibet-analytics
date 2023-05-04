@@ -1,30 +1,27 @@
+import { formatToken, mojoToXCHString } from '@/utils';
 import React, { useState } from 'react';
 import { Transaction } from '@/api';
 import Link from 'next/link';
-import { formatToken, mojoToXCHString } from '@/utils';
-import Image from 'next/image';
 
 
 interface TransactionListProps {
   transactions: Transaction[];
   tokenShortName: string;
-  moarTxesAvailable: boolean;
-  loadingMoarTxes: boolean;
+  moreTxesAvailable: boolean;
+  loadingMoreTxes: boolean;
   loadMoreTxes: () => void;
 }
 
 
-export const TransactionList: React.FC<TransactionListProps> = ({ transactions, tokenShortName, moarTxesAvailable, loadingMoarTxes, loadMoreTxes }) => {
+export const TransactionList: React.FC<TransactionListProps> = ({ transactions, tokenShortName, moreTxesAvailable, loadingMoreTxes, loadMoreTxes }) => {
 
   function generateOperationSummary(operation: Transaction['operation'], state_change: Transaction['state_change']) {
     switch (operation) {
       case "ADD_LIQUIDITY":
-        // return `Add ${tokenShortName} and XCH`;
         return <span>Add {tokenShortName} and XCH</span>;
       case "SWAP":
         let swapAdd;
         let swapRemove;
-
         if (state_change.xch < 0) {
           swapRemove = "XCH";
           swapAdd = tokenShortName;
