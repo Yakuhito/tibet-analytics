@@ -8,15 +8,16 @@ export default function Navbar() {
       <div className="container mx-auto px-4 flex gap-8 items-center justify-between py-4">
         <Link href="/">
             <Image
-                src="/logo.jpg"
-                height="64"
-                width="64"
-                alt="TibetSwap Logo"
-                className="rounded-full border-neutral-300 hover:translate-y-1 hover:opacity-80 transition dark:opacity-80"
+              src="/logo.jpg"
+              height="64"
+              width="64"
+              alt="TibetSwap Logo"
+              className="rounded-full border-neutral-300 hover:translate-y-1 hover:opacity-80 transition dark:opacity-80"
             />
         </Link>
         <div className="flex items-center bg-brandDark/10 dark:bg-brandDark/20 rounded-xl p-1">
           <Link href={`${process.env.NEXT_PUBLIC_APP_URL}`} className="font-medium text-brandDark dark:text-brandLight/50 px-4 py-1">Swap</Link>
+          <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/faq`} className="font-medium text-brandDark px-4 py-1 rounded-lg">FAQ</Link>
           <Link href="/" className="font-medium text-brandLight px-4 py-1 bg-brandDark rounded-lg">Analytics</Link>
         </div>
       </div>
