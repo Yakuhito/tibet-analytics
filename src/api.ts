@@ -20,14 +20,14 @@
 
   export interface StateChange {
     xch: number;
-    tokens: number;
+    token: number;
     liquidity: number;
   }
   
   export interface Transaction {
     coin_id: string;
     pair_launcher_id: string;
-    operation: string;
+    operation: "REMOVE_LIQUIDITY" | "SWAP" | "ADD_LIQUIDITY";
     state_change: StateChange;
     height: number;
   }
