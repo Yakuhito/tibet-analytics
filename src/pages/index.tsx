@@ -35,6 +35,11 @@ const StatsPage: React.FC = () => {
     }
 
     fetchData();
+    const intervalId = setInterval(fetchData, 30000); // 30 seconds
+
+    return () => {
+      clearInterval(intervalId); // Clean up the interval when the component is unmounted
+    };
   }, []);
 
   const tvlString = loading ? '' : mojoToXCHString(stats!.total_value_locked);
