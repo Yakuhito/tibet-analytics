@@ -57,7 +57,7 @@
     offset: number = 0
   ): Promise<Transaction[]> {
     const response = await fetch(
-      `${API_BASE_URL}/transactions/?pair_launcher_id=${pairLauncherId}&limit=${limit}&offset=${offset}`
+      `${API_BASE_URL}/transactions?pair_launcher_id=${pairLauncherId}&limit=${limit}&offset=${offset}`
     );
     return response.json();
   }
