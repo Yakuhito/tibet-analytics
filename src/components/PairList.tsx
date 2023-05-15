@@ -15,7 +15,7 @@ export const PairList: React.FC<PairListProps> = ({ pairs }) => {
         <td className="flex items-center gap-3 h-16 pl-4">
           <Image
             src={pair.image_url}
-            alt="Token Image"
+            alt="Img"
             height={24}
             width={24}
             className="rounded-full"
