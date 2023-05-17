@@ -30,8 +30,8 @@ export const PairList: React.FC<PairListProps> = ({ pairs }) => {
   let sortedPairs = [...pairs];
   if (sortColumn && sortOrder) {
     sortedPairs.sort((a, b) => {
-      const valueA = Number(a[sortColumn]);
-      const valueB = Number(b[sortColumn]);
+      const valueA = a[sortColumn];
+      const valueB = b[sortColumn];
 
       if (sortOrder === 'asc') {
         return valueA < valueB ? -1 : 1;
