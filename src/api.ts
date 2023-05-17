@@ -30,6 +30,7 @@
     operation: "REMOVE_LIQUIDITY" | "SWAP" | "ADD_LIQUIDITY";
     state_change: StateChange;
     height: number;
+    timestamp: number;
   }
 
   export interface Stats {
