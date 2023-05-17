@@ -76,7 +76,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
             </th>
             <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token0 Amount</span></th>
             <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Token1 Amount</span></th>
-            <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Height</span></th>
+            <th className="text-right hidden lg:table-cell"><span className='bg-brandDark/10 px-4 rounded-full py-1'>Time</span></th>
             <th className="text-right"><span className='bg-brandDark/10 px-4 text-sm sm:text-xl rounded-full py-1 lg:hidden'>Change</span></th>
           </tr>
         </thead>
