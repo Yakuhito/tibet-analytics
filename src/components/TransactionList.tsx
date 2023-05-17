@@ -1,4 +1,5 @@
 import { formatToken, mojoToXCHString } from '@/utils';
+import { formatDistanceToNow } from 'date-fns';
 import React, { useState } from 'react';
 import { Transaction } from '@/api';
 import Link from 'next/link';
@@ -52,7 +53,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
       <td className="truncate max-w-[225px] text-brandDark dark:text-brandLight text-left h-16 pl-4"><Link target="_blank" className="hover:opacity-60" href={process.env.NEXT_PUBLIC_SPACESCAN_BASE_URL + transaction.coin_id}>{generateOperationSummary(transaction.operation, transaction.state_change)}</Link></td>
       <td className="pr-4 hidden lg:table-cell">{mojoToXCHString(transaction.state_change.xch, true)}</td>
       <td className="pr-4 hidden lg:table-cell">{formatToken(transaction.state_change.token, true)} {tokenShortName}</td>
-      <td className="pr-4 hidden lg:table-cell">{transaction.height}</td>
+      <td className="pr-4 hidden lg:table-cell">{formatDistanceToNow(transaction.timestamp*1000, { addSuffix: true })}</td>
       <td className="pr-4 lg:hidden text-sm font-medium">
         <p className={`${transaction.state_change.xch < 0 ? 'text-red-800 dark:text-red-700' : 'text-green-800 dark:text-green-600'}`}>{mojoToXCHString(transaction.state_change.xch, true)}</p>
         <p className={`${transaction.state_change.token < 0 ? 'text-red-800 dark:text-red-700' : 'text-green-800 dark:text-green-600'}`}>{formatToken(transaction.state_change.token, true)} {tokenShortName}</p>
