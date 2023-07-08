@@ -1,7 +1,7 @@
 import SettingsModal from './modals/SettingsModal';
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
+import Logo from './Logo';
 
 interface NavbarProps {
   theme: "dark" | "light" | "auto";
@@ -16,14 +16,8 @@ export default function Navbar({ theme, setTheme }: NavbarProps) {
       <div className="container mx-auto px-4 flex gap-4 sm:gap-8 items-center justify-between py-4">
 
         {/* Logo */}
-        <Link href="/">
-            <Image
-              src="/logo.jpg"
-              height="64"
-              width="64"
-              alt="TibetSwap Logo"
-              className="rounded-full border-neutral-300 hover:translate-y-1 hover:opacity-80 transition dark:opacity-80"
-            />
+        <Link href="/" className="aspect-square dark:bg-brandLight p-1 rounded-full w-12 md:w-16 md:h-16 dark:opacity-80 hover:translate-y-1 flex items-center justify-center transition">
+            <Logo className="fill-brandDark max-w-full h-auto mt-1.5" />
         </Link>
 
         {/* Desktop navigation */}
