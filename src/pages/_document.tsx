@@ -1,4 +1,3 @@
-import Navbar from '@/components/Navbar'
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
@@ -6,8 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       <body className="bg-slate-100 dark:bg-zinc-900 dark:text-brandLight">
-        <Navbar />
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto">
           <Main />
         </div>
         <NextScript />
