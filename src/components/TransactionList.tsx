@@ -30,7 +30,7 @@ export const TransactionList: React.FC<TransactionListProps> = ({ transactions, 
           swapAdd = "XCH";
           swapRemove = tokenShortName;
         }
-        return <span>Swap {swapRemove} for {swapAdd}</span>;
+        return <span>Swap {swapAdd} for {swapRemove}</span>;
       case "REMOVE_LIQUIDITY":
         return <span>Remove XCH and {tokenShortName}</span>;
       default:
