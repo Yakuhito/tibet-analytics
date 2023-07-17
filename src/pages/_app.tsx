@@ -39,7 +39,9 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Navbar theme={theme} setTheme={setTheme} />
-      <Component {...pageProps} />
+      <section className='px-4'>
+        <Component {...pageProps} />
+      </section>
     </>
   )
 }
